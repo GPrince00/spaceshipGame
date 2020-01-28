@@ -7,10 +7,10 @@ const ENEMIES_COLORS = [
 ];
 const HERO_SIZE = ENEMIES_SIZE;
 const HERO_COLOR = 'grey';
-const GAME_OVER_FONT = '20px Verdana';
+const GAME_OVER_FONT = '50px OCR A Std';
 const GAME_OVER_COLOR = 'white';
 const GAME_OVER_TEXT = 'GAME OVER';
-const GAME_OVER_X = 185;
+const GAME_OVER_X = 90;
 const GAME_OVER_Y = 220;
 
 const PAUSE_FONT = '40px OCR A Std';
@@ -130,17 +130,23 @@ window.addEventListener('keydown', (e) => {
     if (ourHero.x <= 0) return;
     ourHero.x -= HERO_SIZE;
   }
+  
   if (e.keyCode === 39) {
     if (ourHero.x >= canvas.width - HERO_SIZE) return;
     ourHero.x += HERO_SIZE;
   }
+
   if (e.keyCode === 32) {
     if (running === false && lose){
       running = true;
       stop = false;
       render();
-    }else{      
+    }else{
       stop = true;
-    }    
-  }  
+    }
+  }
+
+  if (e.keyCode === 82){
+    window.location.reload()
+  }
 });
