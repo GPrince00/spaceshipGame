@@ -13,11 +13,19 @@ const GAME_OVER_TEXT = 'GAME OVER';
 const GAME_OVER_X = 185;
 const GAME_OVER_Y = 220;
 
+const PAUSE_FONT = '40px OCR A Std';
+const PAUSE_COLOR = 'white';
+const PAUSE_TEXT = 'PAUSE';
+const PAUSE_X = 170;
+const PAUSE_Y = 220;
+
 const canvas = document.getElementById('my-canvas');
 const ctx = canvas.getContext('2d');
 
 let running = false;
 let frames = 0;
+let lose = true;
+let stop = false;
 
 class Enemy {
   constructor(x) {
@@ -54,6 +62,12 @@ const collisionChecker = () => {
   })
 }
 
+const pauseChecker = () => {
+  if (stop){
+    pause();
+  }
+}
+
 class Hero {
   constructor() {
     this.x = 0;
@@ -81,20 +95,28 @@ const ourHero = new Hero();
 const resetCanvas = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 const gameOver = () => {
+  lose = false;
   running = false;
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
 }
 
+const pause = () => {
+  running = false;
+  ctx.font = PAUSE_FONT;
+  ctx.fillStyle = PAUSE_COLOR;
+  ctx.fillText(PAUSE_TEXT, PAUSE_X, PAUSE_Y);
+}
+
 const render = () => {
   resetCanvas();
-
   frames += 1;
   ourHero.draw();
   createEnemy();
   drawEnemies();
   collisionChecker();
+  pauseChecker();
   if (running) {
     window.requestAnimationFrame(render);
   }
@@ -111,5 +133,14 @@ window.addEventListener('keydown', (e) => {
   if (e.keyCode === 39) {
     if (ourHero.x >= canvas.width - HERO_SIZE) return;
     ourHero.x += HERO_SIZE;
-  }    
+  }
+  if (e.keyCode === 32) {
+    if (running === false && lose){
+      running = true;
+      stop = false;
+      render();
+    }else{      
+      stop = true;
+    }    
+  }  
 });
