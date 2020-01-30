@@ -19,7 +19,7 @@ const PAUSE_TEXT = 'PAUSE';
 const PAUSE_X = 170;
 const PAUSE_Y = 220;
 
-const canvas = document.getElementById('my-canvas');
+const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 let running = false;
@@ -109,6 +109,12 @@ const pause = () => {
   ctx.fillText(PAUSE_TEXT, PAUSE_X, PAUSE_Y);
 }
 
+const fixLeak = () => {
+  if(ENEMIES_STORE.length == 11){
+    ENEMIES_STORE.shift();
+  }
+}
+
 const render = () => {
   resetCanvas();
   frames += 1;
@@ -117,6 +123,7 @@ const render = () => {
   drawEnemies();
   collisionChecker();
   pauseChecker();
+  fixLeak();
   if (running) {
     window.requestAnimationFrame(render);
   }
