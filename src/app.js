@@ -26,6 +26,7 @@ let running = false;
 let frames = 0;
 let lose = true;
 let stop = false;
+let score = 0;
 
 class Enemy {
   constructor(x) {
@@ -47,6 +48,7 @@ const createEnemy = () => {
   if (frames % 5 === 0) {
     const x = Math.floor(Math.random() * 10) * ENEMIES_SIZE;
     ENEMIES_STORE.push(new Enemy(x));
+    score = score + 1;
   }
 }
 
@@ -115,6 +117,12 @@ const fixLeak = () => {
   }
 }
 
+const socoreWindow = () => {
+  ctx.font = '20px OCR A Std';
+  ctx.fillStyle = PAUSE_COLOR;
+  ctx.fillText(score, 5, 20);
+};
+
 const render = () => {
   resetCanvas();
   frames += 1;
@@ -124,6 +132,7 @@ const render = () => {
   collisionChecker();
   pauseChecker();
   fixLeak();
+  socoreWindow();
   if (running) {
     window.requestAnimationFrame(render);
   }
