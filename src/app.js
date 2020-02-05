@@ -1,5 +1,10 @@
 const ENEMIES_STORE = [];
 const ENEMIES_SIZE = 50;
+const ENEMIES_IMAGES = [
+  '../assets/Invader1.png', '../assets/Invader.png',
+  '../assets/Invader2.png', '../assets/Invader3.png', 
+  '../assets/Invader4.png'
+]
 const ENEMIES_COLORS = [
   'red', 'blue', 'yellow', 'white',
   'green', 'purple', 'navy', 'silver', 'olive',
@@ -35,12 +40,20 @@ class Enemy {
     this.width = ENEMIES_SIZE;
     this.height = ENEMIES_SIZE;
     this.color = ENEMIES_COLORS[Math.floor(Math.random() * ENEMIES_COLORS.length)];
+    this.image = ENEMIES_IMAGES[Math.floor(Math.random() * ENEMIES_IMAGES.length)];
   }
 
   draw() {
     this.y += 10;
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE);  
+
+    //new form
+    const img = new Image()
+    img.src = this.image;    
+    ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE)
+
+    // old form
+    // ctx.fillStyle = this.color;
+    // ctx.fillRect(this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE);  
   }
 }
 
@@ -82,9 +95,15 @@ class Hero {
   draw() {
     if (this.x < 0) this.x = 0;
     if (this.x > canvas.width - HERO_SIZE) this.x = canvas.width - HERO_SIZE;
-
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, HERO_SIZE, HERO_SIZE);  
+    
+    // new form
+    const img = new Image()
+    img.src = "../assets/spaceship.png"    
+    ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE)
+    
+    // old form
+    // ctx.fillStyle = this.color;
+    // ctx.fillRect(this.x, this.y, HERO_SIZE, HERO_SIZE);  
   }
 
   checkCollision(enemy) {
