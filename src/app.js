@@ -1,10 +1,13 @@
 const ENEMIES_STORE = [];
 const ENEMIES_SIZE = 50;
-const ENEMIES_IMAGES = [
-  '../assets/Invader1.png', '../assets/Invader.png',
-  '../assets/Invader2.png', '../assets/Invader3.png', 
-  '../assets/Invader4.png'
-]
+const ENEMIES_ASTEROID = [
+  '../assets/asteroid.png', '../assets/asteroid1.png',
+  '../assets/asteroid2.png', '../assets/asteroid3.png',
+  '../assets/asteroid4.png', '../assets/asteroid5.png',
+  '../assets/asteroid6.png', '../assets/asteroid7.png',
+  '../assets/asteroid8.png', '../assets/asteroid9.png',
+  '../assets/asteroid10.png', '../assets/asteroid11.png'
+];
 const ENEMIES_COLORS = [
   'red', 'blue', 'yellow', 'white',
   'green', 'purple', 'navy', 'silver', 'olive',
@@ -40,7 +43,7 @@ class Enemy {
     this.width = ENEMIES_SIZE;
     this.height = ENEMIES_SIZE;
     this.color = ENEMIES_COLORS[Math.floor(Math.random() * ENEMIES_COLORS.length)];
-    this.image = ENEMIES_IMAGES[Math.floor(Math.random() * ENEMIES_IMAGES.length)];
+    this.asteroid = ENEMIES_ASTEROID[Math.floor(Math.random() * ENEMIES_ASTEROID.length)];
   }
 
   draw() {
@@ -48,7 +51,7 @@ class Enemy {
 
     //new form
     const img = new Image()
-    img.src = this.image;    
+    img.src = this.asteroid;    
     ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE)
 
     // old form
@@ -98,7 +101,7 @@ class Hero {
     
     // new form
     const img = new Image()
-    img.src = "../assets/spaceship.png"    
+    img.src = "../assets/spaceship1.png"    
     ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE)
     
     // old form
