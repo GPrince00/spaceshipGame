@@ -29,6 +29,8 @@ const PAUSE_Y = 220;
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const scoreCanvas = document.getElementById('scoreCanvas');
+const scoreCtx = scoreCanvas.getContext('2d');
 
 let running = false;
 let frames = 0;
@@ -116,7 +118,10 @@ class Hero {
 
 const ourHero = new Hero();
 
-const resetCanvas = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+const resetCanvas = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  scoreCtx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 const gameOver = () => {
   lose = false;
@@ -140,9 +145,9 @@ const fixLeak = () => {
 }
 
 const socoreWindow = () => {
-  ctx.font = '20px OCR A Std';
-  ctx.fillStyle = PAUSE_COLOR;
-  ctx.fillText(score, 5, 20);
+  scoreCtx.font = '30px OCR A Std';
+  scoreCtx.fillStyle = PAUSE_COLOR;
+  scoreCtx.fillText(score, 5, 24);
 };
 
 const render = () => {
