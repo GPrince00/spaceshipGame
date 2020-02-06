@@ -4,16 +4,24 @@
 }
 
 body {
+  position: relative;
   background-color: #cccccc;
   text-align: center;
+  overflow: hidden;
 }
 
 #canvas {
   margin-top: 50px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 #scoreCanvas {
   margin-bottom: 470px;
-  background-color: black;
+}
+
+img {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 106%;
 }
