@@ -15,13 +15,13 @@ const ENEMIES_COLORS = [
 ];
 const HERO_SIZE = ENEMIES_SIZE;
 const HERO_COLOR = 'grey';
-const GAME_OVER_FONT = '50px OCR A Std';
+const GAME_OVER_FONT = '50px Roboto Slab';
 const GAME_OVER_COLOR = 'white';
 const GAME_OVER_TEXT = 'GAME OVER';
 const GAME_OVER_X = 90;
 const GAME_OVER_Y = 220;
 
-const PAUSE_FONT = '40px OCR A Std';
+const PAUSE_FONT = '40px Roboto Slab';
 const PAUSE_COLOR = 'white';
 const PAUSE_TEXT = 'PAUSE';
 const PAUSE_X = 170;
@@ -145,7 +145,7 @@ const fixLeak = () => {
 }
 
 const socoreWindow = () => {
-  scoreCtx.font = '30px OCR A Std';
+  scoreCtx.font = '30px Roboto Slab';
   scoreCtx.fillStyle = PAUSE_COLOR;
   scoreCtx.fillText(score, 5, 24);
 };
