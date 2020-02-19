@@ -164,6 +164,12 @@ const writeScoreData = (score) => {
     }
   });
 }
+const readScoreData = (id) => {
+    firebase.database().ref('/' + id).once('value').then(function(snapshot) {
+      var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
+      console.log(scores);
+    });
+}
 
 const render = () => {
   resetCanvas();
@@ -208,7 +214,7 @@ window.addEventListener('keydown', (e) => {
     if (running === false){
       for (var i = 0; i < 12; i++) {
         ENEMIES_STORE.pop(i);
-     }
+      }
       score = 0;
       running = true;
       render();
