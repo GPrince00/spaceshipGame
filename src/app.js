@@ -130,8 +130,8 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
-  counter++;
-  writeScoreData(score);
+  // counter++;
+  // writeScoreData(score);
 }
 
 const pause = () => {
@@ -153,23 +153,23 @@ const socoreWindow = () => {
   scoreCtx.fillText(score, 5, 24);
 };
 
-const writeScoreData = (score) => {
-  firebase.database().ref('/' + counter).set({
-    score: score,
-  }, function(error) {
-    if (error) {
-      console.log('Something wrong happend:' + error)
-    } else {
-      console.log('Works')
-    }
-  });
-}
-const readScoreData = (id) => {
-    firebase.database().ref('/' + id).once('value').then(function(snapshot) {
-      var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
-      console.log(scores);
-    });
-}
+// const writeScoreData = (score) => {
+//   firebase.database().ref('/' + counter).set({
+//     score: score,
+//   }, function(error) {
+//     if (error) {
+//       console.log('Something wrong happend:' + error)
+//     } else {
+//       console.log('Works')
+//     }
+//   });
+// }
+// const readScoreData = (id) => {
+//     firebase.database().ref('/' + id).once('value').then(function(snapshot) {
+//       var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
+//       console.log(scores);
+//     });
+// }
 
 const render = () => {
   resetCanvas();
