@@ -203,6 +203,13 @@ window.addEventListener('keydown', (e) => {
   }
 
   if (e.keyCode === 82){
-    window.location.reload()
+    if (running === false){
+      for (var i = 0; i < 12; i++) {
+        ENEMIES_STORE.pop(i);
+     }
+      score = 0;
+      running = true;
+      render();
+    } 
   }
 });
