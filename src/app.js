@@ -103,7 +103,7 @@ class Hero {
     
     // new form
     const img = new Image()
-    img.src = "../assets/spaceship1.png"    
+    img.src = "./assets/spaceship1.png"    
     ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE)
     
     // old form
@@ -129,6 +129,7 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
+  writeScoreData(score);
 }
 
 const pause = () => {
@@ -149,6 +150,18 @@ const socoreWindow = () => {
   scoreCtx.fillStyle = PAUSE_COLOR;
   scoreCtx.fillText(score, 5, 24);
 };
+
+const writeScoreData = (score) => {
+  firebase.database().ref('/' + contador).set({
+    score: score,
+  }, function(error) {
+    if (error) {
+      console.log('Something wrong happend:' + error)
+    } else {
+      console.log('Works')
+    }
+  });
+}
 
 const render = () => {
   resetCanvas();
