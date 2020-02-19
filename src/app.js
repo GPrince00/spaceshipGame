@@ -37,6 +37,7 @@ let frames = 0;
 let lose = true;
 let stop = false;
 let score = 0;
+let counter = 0
 
 class Enemy {
   constructor(x) {
@@ -129,6 +130,7 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
+  counter++;
   writeScoreData(score);
 }
 
@@ -152,7 +154,7 @@ const socoreWindow = () => {
 };
 
 const writeScoreData = (score) => {
-  firebase.database().ref('/' + contador).set({
+  firebase.database().ref('/' + counter).set({
     score: score,
   }, function(error) {
     if (error) {
