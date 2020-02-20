@@ -13,6 +13,7 @@ const ENEMIES_COLORS = [
   'green', 'purple', 'navy', 'silver', 'olive',
   'lime', 'fuchsia', 'teal', 'aqua', 'maroon'
 ];
+const WORLD_SCORE = [];
 const HERO_SIZE = ENEMIES_SIZE;
 const HERO_COLOR = 'grey';
 const GAME_OVER_FONT = '50px Roboto Slab';
@@ -31,6 +32,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const scoreCanvas = document.getElementById('scoreCanvas');
 const scoreCtx = scoreCanvas.getContext('2d');
+const worldScoreCanvas = document.getElementById('worldScoreCanvas');
+const worldScoreCtx = worldScoreCanvas.getContext('2d');
 
 let running = false;
 let frames = 0;
@@ -149,27 +152,45 @@ const fixLeak = () => {
 
 const socoreWindow = () => {
   scoreCtx.font = '30px Roboto Slab';
-  scoreCtx.fillStyle = PAUSE_COLOR;
+  scoreCtx.fillStyle = "white";
   scoreCtx.fillText(score, 5, 24);
 };
 
-// const writeScoreData = (score) => {
-//   firebase.database().ref('/' + counter).set({
-//     score: score,
-//   }, function(error) {
-//     if (error) {
-//       console.log('Something wrong happend:' + error)
-//     } else {
-//       console.log('Works')
-//     }
-//   });
-// }
-// const readScoreData = (id) => {
-//     firebase.database().ref('/' + id).once('value').then(function(snapshot) {
-//       var scores = (snapshot.val() && snapshot.val().score) || 'Anonymous';
-//       console.log(scores);
-//     });
-// }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+let Names = ["Prince", "Sofia", "Caricho", "Massaroto", "Junior", "Brunão", "MG", "Vinut", "Rao", "Mateus"];
+const worldSocoreWindow = async () => {
+  await sleep(3000);
+  worldScoreCtx.font = '30px Roboto Slab';
+  worldScoreCtx.fillStyle = "white";
+  let Y = 25;
+  for (var i = 0; i < 10; i++) {
+    worldScoreCtx.fillText(WORLD_SCORE[i] + ": " + Names[i], 5, Y);
+    Y += 33;    
+  }  
+};
+
+const writeScoreData = (score) => {
+  firebase.database().ref('/' + counter).set({
+    score: score,
+  }, function(error) {
+    if (error) {
+      console.log('Something wrong happend:' + error)
+    } else {
+      console.log('Works')
+    }
+  });
+}
+
+const readScoreData = () => {
+  for (var i = 0; i < 10; i++) {
+     firebase.database().ref('/' + i).once('value').then(function(snapshot) {
+      WORLD_SCORE.push((snapshot.val() && snapshot.val().score) || 'Anonymous');
+    });
+  }
+worldSocoreWindow();
+}
 
 const render = () => {
   resetCanvas();
@@ -186,6 +207,7 @@ const render = () => {
   }
 }
 
+readScoreData();
 running = true;
 render();
 
