@@ -164,6 +164,8 @@ const worldSocoreWindow = async () => {
   await sleep(3000);
   worldScoreCtx.font = '30px Roboto Slab';
   worldScoreCtx.fillStyle = "white";
+  WORLD_SCORE.sort();
+  WORLD_SCORE.reverse();
   let Y = 25;
   for (var i = 0; i < 10; i++) {
     worldScoreCtx.fillText(WORLD_SCORE[i] + ": " + Names[i], 5, Y);
