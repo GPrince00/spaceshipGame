@@ -123,7 +123,7 @@ class Hero {
 
 const ourHero = new Hero();
 
-const resetCanvas = () => {
+const resetCanvas = (canvas, ctx) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   scoreCtx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -134,10 +134,8 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
-  getName();
   counter++;
-
-  // checkScore();
+  checkScore();
 }
 
 const pause = () => {
@@ -164,7 +162,7 @@ function sleep(ms) {
 }
 let Names = ["Prince", "Sofia", "Caricho", "Massaroto", "Junior", "Brunão", "MG", "Vinut", "Rao", "Mateus"];
 const worldSocoreWindow = async () => {
-  await sleep(3000);
+  await sleep(1000);
   worldScoreCtx.font = '30px Roboto Slab';
   worldScoreCtx.fillStyle = "white";
   function compare(a, b) {
@@ -174,36 +172,33 @@ const worldSocoreWindow = async () => {
     return comparison;
   }
   WORLD_SCORE.sort(compare);
-  console.log(WORLD_SCORE);
   let Y = 25;
-  for (var i = 1; i < 11; i++) {
+  for (var i = 0; i < WORLD_SCORE.length; i++) {
     worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + WORLD_SCORE[i].name, 5, Y);
     Y += 33;    
   }  
 };
 
-const checkScore = () => {
-  for (var i = 0; i < 3; i++) {
-
-  firebase.database().ref('/' + i +'/score').once('value').then(function(snapshot) {
-    var score = (snapshot.val() && snapshot.val().score) || 'Anonymous';
-    console.log(score)
-  });
-}
-  // if(score > WORLD_SCORE[8]){
-  //   alert("escreva o seu nome");
-  // }
+const checkScore = async () => {
+  await sleep(1000);
+  if(score > WORLD_SCORE[9].score){
+    var name = prompt("Please enter your name", "Harry Potter");
+    resetCanvas(worldScoreCanvas, worldScoreCtx);
+    writeScoreData(score, name, WORLD_SCORE[9].id)
+    for (var i = 0; i < 11; i++) {
+      WORLD_SCORE.pop(i);
+    }
+    readScoreData();
+  }
 };
 
 const getName = () => {
   var name = prompt("Please enter your name", "Harry Potter");
-  if (name != null) {
-    console.log(name);
-    writeScoreData(score, name);
-  }
+    return name;
 }
-const writeScoreData = (score, name) => {
-  firebase.database().ref('/' + counter).set({
+
+const writeScoreData = (score, name, id) => {
+  firebase.database().ref('/' + id).set({
     score: score,
     name: name,
   }, function(error) {
@@ -216,24 +211,28 @@ const writeScoreData = (score, name) => {
 }
 
 const readScoreData = () => {
+  let id = 0;
   for (var i = 0; i < 10; i++) {
      firebase.database().ref('/' + i).once('value').then(function(snapshot) {
       WORLD_SCORE.push({ 
         score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
-        name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
+        name: (snapshot.val() && snapshot.val().name) || 'Anonymous',
+        id: id
       });
-      console.log({ 
-        score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
-        name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
-      });
+      id++;
+      // console.log({ 
+      //   score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
+      //   name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
+      // });
     });
   }
   console.log(WORLD_SCORE);
+  WORLD_SCORE.shift();
 worldSocoreWindow();
 }
 
 const render = () => {
-  resetCanvas();
+  resetCanvas(canvas, ctx);
   frames += 1;
   ourHero.draw();
   createEnemy();
