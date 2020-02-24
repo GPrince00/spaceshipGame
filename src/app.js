@@ -171,7 +171,7 @@ const worldSocoreWindow = async () => {
   WORLD_SCORE.reverse();
   let Y = 25;
   for (var i = 0; i < 10; i++) {
-    worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + WORLD_SCORE[i].name, 5, Y);
+    worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + Names[i], 5, Y);
     Y += 33;    
   }  
 };
@@ -214,8 +214,12 @@ const readScoreData = () => {
      firebase.database().ref('/' + i).once('value').then(function(snapshot) {
       WORLD_SCORE.push({ 
         score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
+        name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
       });
-      
+      console.log({ 
+        score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
+        name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
+      });
     });
   }
 worldSocoreWindow();
