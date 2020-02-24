@@ -13,7 +13,7 @@ const ENEMIES_COLORS = [
   'green', 'purple', 'navy', 'silver', 'olive',
   'lime', 'fuchsia', 'teal', 'aqua', 'maroon'
 ];
-const WORLD_SCORE = [];
+const WORLD_SCORE = [{}];
 const HERO_SIZE = ENEMIES_SIZE;
 const HERO_COLOR = 'grey';
 const GAME_OVER_FONT = '50px Roboto Slab';
@@ -40,7 +40,8 @@ let frames = 0;
 let lose = true;
 let stop = false;
 let score = 0;
-let counter = 0
+let name = "";
+let counter = 0;
 
 class Enemy {
   constructor(x) {
@@ -133,8 +134,10 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
-  // counter++;
-  // writeScoreData(score);
+  getName();
+  counter++;
+
+  // checkScore();
 }
 
 const pause = () => {
@@ -173,6 +176,26 @@ const worldSocoreWindow = async () => {
   }  
 };
 
+const checkScore = () => {
+  for (var i = 0; i < 3; i++) {
+
+  firebase.database().ref('/' + i +'/score').once('value').then(function(snapshot) {
+    var score = (snapshot.val() && snapshot.val().score) || 'Anonymous';
+    console.log(score)
+  });
+}
+  // if(score > WORLD_SCORE[8]){
+  //   alert("escreva o seu nome");
+  // }
+};
+
+const getName = () => {
+  var name = prompt("Please enter your name", "Harry Potter");
+  if (name != null) {
+    console.log(name);
+    writeScoreData(score);
+  }
+}
 const writeScoreData = (score) => {
   firebase.database().ref('/' + counter).set({
     score: score,
@@ -188,7 +211,9 @@ const writeScoreData = (score) => {
 const readScoreData = () => {
   for (var i = 0; i < 10; i++) {
      firebase.database().ref('/' + i).once('value').then(function(snapshot) {
-      WORLD_SCORE.push((snapshot.val() && snapshot.val().score) || 'Anonymous');
+      WORLD_SCORE.push({ 
+        score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
+      });
     });
   }
 worldSocoreWindow();
