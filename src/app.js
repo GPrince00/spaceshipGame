@@ -134,7 +134,6 @@ const gameOver = () => {
   ctx.font = GAME_OVER_FONT;
   ctx.fillStyle = GAME_OVER_COLOR;
   ctx.fillText(GAME_OVER_TEXT, GAME_OVER_X, GAME_OVER_Y);
-  counter++;
   checkScore();
 }
 
@@ -192,11 +191,6 @@ const checkScore = async () => {
   }
 };
 
-const getName = () => {
-  var name = prompt("Please enter your name", "Harry Potter");
-    return name;
-}
-
 const writeScoreData = (score, name, id) => {
   firebase.database().ref('/' + id).set({
     score: score,
@@ -220,14 +214,9 @@ const readScoreData = () => {
         id: id
       });
       id++;
-      // console.log({ 
-      //   score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
-      //   name: (snapshot.val() && snapshot.val().name) || 'Anonymous'
-      // });
     });
   }
-  console.log(WORLD_SCORE);
-  WORLD_SCORE.shift();
+WORLD_SCORE.shift();
 worldSocoreWindow();
 }
 
