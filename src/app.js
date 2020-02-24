@@ -216,6 +216,7 @@ const readScoreData = () => {
       id++;
     });
   }
+console.log(WORLD_SCORE);
 WORLD_SCORE.shift();
 worldSocoreWindow();
 }
@@ -266,6 +267,11 @@ window.addEventListener('keydown', (e) => {
         ENEMIES_STORE.pop(i);
       }
       score = 0;
+      resetCanvas(worldScoreCanvas, worldScoreCtx);
+      for (var i = 0; i < 11; i++) {
+        WORLD_SCORE.pop(i);
+      }
+      readScoreData();
       running = true;
       render();
     } 
