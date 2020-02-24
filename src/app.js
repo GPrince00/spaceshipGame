@@ -167,10 +167,16 @@ const worldSocoreWindow = async () => {
   await sleep(3000);
   worldScoreCtx.font = '30px Roboto Slab';
   worldScoreCtx.fillStyle = "white";
-  WORLD_SCORE.sort();
-  WORLD_SCORE.reverse();
+  function compare(a, b) {
+    let comparison = 0;
+    if (a.score < b.score) comparison = 1;
+    if (a.score > b.score) comparison = -1;
+    return comparison;
+  }
+  WORLD_SCORE.sort(compare);
+  console.log(WORLD_SCORE);
   let Y = 25;
-  for (var i = 0; i < 10; i++) {
+  for (var i = 1; i < 11; i++) {
     worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + WORLD_SCORE[i].name, 5, Y);
     Y += 33;    
   }  
@@ -222,6 +228,7 @@ const readScoreData = () => {
       });
     });
   }
+  console.log(WORLD_SCORE);
 worldSocoreWindow();
 }
 
