@@ -8,9 +8,12 @@ body {
   text-align: center;
   overflow: hidden;
 }
+#commandsCanvas {
+  margin-top: 200px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
 
 #canvas {
-  margin-left: 260px;
   margin-top: 50px;
   background-color: rgba(0, 0, 0, 0.8);
 }
