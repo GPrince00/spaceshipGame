@@ -34,6 +34,8 @@ const scoreCanvas = document.getElementById('scoreCanvas');
 const scoreCtx = scoreCanvas.getContext('2d');
 const worldScoreCanvas = document.getElementById('worldScoreCanvas');
 const worldScoreCtx = worldScoreCanvas.getContext('2d');
+const commandsCanvas = document.getElementById('commandsCanvas');
+const commandsCtx = commandsCanvas.getContext('2d');
 
 let running = false;
 let frames = 0;
@@ -221,6 +223,18 @@ WORLD_SCORE.shift();
 worldSocoreWindow();
 }
 
+function commands() {
+  const gameCommands = new Image();
+  gameCommands.src = "./assets/gamecommands.png"    
+  commandsCtx.drawImage(gameCommands, 19, 175);
+  const leftArrow = new Image();
+  leftArrow.src = "./assets/leftarrow.png"    
+  commandsCtx.drawImage(leftArrow, 70, 220, 60, 60);
+  const rightArrow = new Image();
+  rightArrow.src = "./assets/rightarrow.png"    
+  commandsCtx.drawImage(rightArrow, 170, 220, 60, 60);
+};
+
 const render = () => {
   resetCanvas(canvas, ctx);
   frames += 1;
@@ -231,6 +245,8 @@ const render = () => {
   pauseChecker();
   fixLeak();
   socoreWindow();
+  resetCanvas(commandsCanvas, commandsCtx);
+  commands();
   if (running) {
     window.requestAnimationFrame(render);
   }
