@@ -177,7 +177,7 @@ const worldSocoreWindow = async () => {
   for (var i = 0; i < WORLD_SCORE.length; i++) {
     worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + WORLD_SCORE[i].name, 5, Y);
     Y += 33;    
-  }  
+  }
 };
 
 const checkScore = async () => {
@@ -218,9 +218,9 @@ const readScoreData = () => {
       id++;
     });
   }
-console.log(WORLD_SCORE);
-WORLD_SCORE.shift();
-worldSocoreWindow();
+  console.log(WORLD_SCORE);
+  WORLD_SCORE.shift();
+  worldSocoreWindow();
 }
 
 function commands() {
@@ -237,6 +237,7 @@ function commands() {
 
 const render = () => {
   resetCanvas(canvas, ctx);
+  resetCanvas(commandsCanvas, commandsCtx);
   frames += 1;
   ourHero.draw();
   createEnemy();
@@ -245,7 +246,6 @@ const render = () => {
   pauseChecker();
   fixLeak();
   socoreWindow();
-  resetCanvas(commandsCanvas, commandsCtx);
   commands();
   if (running) {
     window.requestAnimationFrame(render);
