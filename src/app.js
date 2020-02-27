@@ -226,13 +226,35 @@ const readScoreData = () => {
 function commands() {
   const gameCommands = new Image();
   gameCommands.src = "./assets/gamecommands.png"    
-  commandsCtx.drawImage(gameCommands, 19, 175);
-  const leftArrow = new Image();
-  leftArrow.src = "./assets/leftarrow.png"    
-  commandsCtx.drawImage(leftArrow, 70, 220, 60, 60);
-  const rightArrow = new Image();
-  rightArrow.src = "./assets/rightarrow.png"    
-  commandsCtx.drawImage(rightArrow, 170, 220, 60, 60);
+  commandsCtx.drawImage(gameCommands, 7, 7);
+
+  const left = new Image();
+  left.src = "./assets/left.png"
+  commandsCtx.drawImage(left, 42, 141);
+
+  const right = new Image();
+  right.src = "./assets/right.png"    
+  commandsCtx.drawImage(right, 172, 141);
+
+  const move = new Image();
+  move.src = "./assets/move.png"    
+  commandsCtx.drawImage(move, 102, 153);
+
+  const space = new Image();
+  space.src = "./assets/space.png"    
+  commandsCtx.drawImage(space, 10, 55);
+  
+  const pause = new Image();
+  pause.src = "./assets/pause.png"    
+  commandsCtx.drawImage(pause, 50, 102);
+
+  const R = new Image();
+  R.src = "./assets/R.png"    
+  commandsCtx.drawImage(R, 183, 55);
+
+  const restart = new Image();
+  restart.src = "./assets/restart.png"    
+  commandsCtx.drawImage(restart, 170, 99);
 };
 
 const render = () => {
