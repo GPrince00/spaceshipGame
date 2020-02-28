@@ -8,11 +8,6 @@ const ENEMIES_ASTEROID = [
   '../assets/asteroid8.png', '../assets/asteroid9.png',
   '../assets/asteroid10.png', '../assets/asteroid11.png'
 ];
-const ENEMIES_COLORS = [
-  'red', 'blue', 'yellow', 'white',
-  'green', 'purple', 'navy', 'silver', 'olive',
-  'lime', 'fuchsia', 'teal', 'aqua', 'maroon'
-];
 const WORLD_SCORE = [{}];
 const HERO_SIZE = ENEMIES_SIZE;
 const HERO_COLOR = 'grey';
@@ -58,14 +53,9 @@ class Enemy {
   draw() {
     this.y += 10;
 
-    //new form
     const img = new Image()
     img.src = this.asteroid;    
-    ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE)
-
-    // old form
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE);  
+    ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE) 
   }
 }
 
@@ -107,15 +97,10 @@ class Hero {
   draw() {
     if (this.x < 0) this.x = 0;
     if (this.x > canvas.width - HERO_SIZE) this.x = canvas.width - HERO_SIZE;
-    
-    // new form
+
     const img = new Image()
     img.src = "./assets/spaceship1.png"    
-    ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE)
-    
-    // old form
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, HERO_SIZE, HERO_SIZE);  
+    ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE) 
   }
 
   checkCollision(enemy) {
