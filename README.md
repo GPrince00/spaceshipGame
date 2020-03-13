@@ -1,10 +1,8 @@
 # Spaceship Game :space_invader: :rocket:
 Spaceship Game using the HTML <canvas> element
 
-The link to the game published on firebase
-
+The link to the game published on firebase<br>
 https://spaceshipgame-17b54.firebaseapp.com/
 
-The link to the design on figma
-
+The link to the design on figma<br>
 https://www.figma.com/file/6wy8NQDHCaORqJsQC9GjbK/Spaceship-Game?node-id=0%3A1
