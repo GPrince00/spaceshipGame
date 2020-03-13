@@ -46,7 +46,6 @@ class Enemy {
     this.y = 0;
     this.width = ENEMIES_SIZE;
     this.height = ENEMIES_SIZE;
-    this.color = ENEMIES_COLORS[Math.floor(Math.random() * ENEMIES_COLORS.length)];
     this.asteroid = ENEMIES_ASTEROID[Math.floor(Math.random() * ENEMIES_ASTEROID.length)];
   }
 
