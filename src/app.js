@@ -35,7 +35,7 @@ const commandsCtx = commandsCanvas.getContext('2d');
 let running = false;
 let frames = 0;
 let lose = true;
-let stop = false;
+let stoped = false;
 let score = 0;
 let name = "";
 let counter = 0;
@@ -79,7 +79,7 @@ const collisionChecker = () => {
 }
 
 const pauseChecker = () => {
-  if (stop){
+  if (stoped){
     pause();
   }
 }
@@ -276,10 +276,10 @@ window.addEventListener('keydown', (e) => {
   if (e.keyCode === 32) {
     if (running === false && lose){
       running = true;
-      stop = false;
+      stoped = false;
       render();
     }else{
-      stop = true;
+      stoped = true;
     }
   }
 
