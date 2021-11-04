@@ -202,7 +202,6 @@ const readScoreData = () => {
       id++;
     });
   }
-  console.log(WORLD_SCORE);
   WORLD_SCORE.shift();
   worldSocoreWindow();
 }
