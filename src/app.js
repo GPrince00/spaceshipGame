@@ -53,8 +53,8 @@ class Enemy {
     this.y += 10;
 
     const img = new Image()
-    img.src = this.asteroid;    
-    ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE) 
+    img.src = this.asteroid;
+    ctx.drawImage(img, this.x, this.y, ENEMIES_SIZE, ENEMIES_SIZE)
   }
 }
 
@@ -79,7 +79,7 @@ const collisionChecker = () => {
 }
 
 const pauseChecker = () => {
-  if (stoped){
+  if (stoped) {
     pause();
   }
 }
@@ -98,13 +98,13 @@ class Hero {
     if (this.x > canvas.width - HERO_SIZE) this.x = canvas.width - HERO_SIZE;
 
     const img = new Image()
-    img.src = "./assets/spaceship1.png"    
-    ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE) 
+    img.src = "./assets/spaceship1.png"
+    ctx.drawImage(img, this.x, this.y, HERO_SIZE, HERO_SIZE)
   }
 
   checkCollision(enemy) {
     return (this.x < enemy.x + enemy.width) && (this.x + this.width > enemy.x) && (this.y < enemy.y + enemy.height) && (this.y + this.height > enemy.y);
-  }  
+  }
 }
 
 const ourHero = new Hero();
@@ -131,7 +131,7 @@ const pause = () => {
 }
 
 const fixLeak = () => {
-  if(ENEMIES_STORE.length == 11){
+  if (ENEMIES_STORE.length == 11) {
     ENEMIES_STORE.shift();
   }
 }
@@ -160,13 +160,13 @@ const worldSocoreWindow = async () => {
   let Y = 25;
   for (var i = 0; i < WORLD_SCORE.length; i++) {
     worldScoreCtx.fillText(WORLD_SCORE[i].score + ": " + WORLD_SCORE[i].name, 5, Y);
-    Y += 33;    
+    Y += 33;
   }
 };
 
 const checkScore = async () => {
   await sleep(1000);
-  if(score > WORLD_SCORE[9].score){
+  if (score > WORLD_SCORE[9].score) {
     var name = prompt("Please enter your name", "Harry Potter");
     resetCanvas(worldScoreCanvas, worldScoreCtx);
     writeScoreData(score, name, WORLD_SCORE[9].id)
@@ -181,7 +181,7 @@ const writeScoreData = (score, name, id) => {
   firebase.database().ref('/' + id).set({
     score: score,
     name: name,
-  }, function(error) {
+  }, function (error) {
     if (error) {
       console.log('Something wrong happend:' + error)
     } else {
@@ -193,8 +193,8 @@ const writeScoreData = (score, name, id) => {
 const readScoreData = () => {
   let id = 0;
   for (var i = 0; i < 10; i++) {
-     firebase.database().ref('/' + i).once('value').then(function(snapshot) {
-      WORLD_SCORE.push({ 
+    firebase.database().ref('/' + i).once('value').then(function (snapshot) {
+      WORLD_SCORE.push({
         score: (snapshot.val() && snapshot.val().score) || 'Anonymous',
         name: (snapshot.val() && snapshot.val().name) || 'Anonymous',
         id: id
@@ -209,7 +209,7 @@ const readScoreData = () => {
 
 function commands() {
   const gameCommands = new Image();
-  gameCommands.src = "./assets/gamecommands.png"    
+  gameCommands.src = "./assets/gamecommands.png"
   commandsCtx.drawImage(gameCommands, 7, 7);
 
   const left = new Image();
@@ -217,27 +217,27 @@ function commands() {
   commandsCtx.drawImage(left, 42, 141);
 
   const right = new Image();
-  right.src = "./assets/right.png"    
+  right.src = "./assets/right.png"
   commandsCtx.drawImage(right, 172, 141);
 
   const move = new Image();
-  move.src = "./assets/move.png"    
+  move.src = "./assets/move.png"
   commandsCtx.drawImage(move, 102, 153);
 
   const space = new Image();
-  space.src = "./assets/space.png"    
+  space.src = "./assets/space.png"
   commandsCtx.drawImage(space, 10, 55);
-  
+
   const pause = new Image();
-  pause.src = "./assets/pause.png"    
+  pause.src = "./assets/pause.png"
   commandsCtx.drawImage(pause, 50, 102);
 
   const R = new Image();
-  R.src = "./assets/R.png"    
+  R.src = "./assets/R.png"
   commandsCtx.drawImage(R, 183, 55);
 
   const restart = new Image();
-  restart.src = "./assets/restart.png"    
+  restart.src = "./assets/restart.png"
   commandsCtx.drawImage(restart, 170, 99);
 };
 
@@ -263,28 +263,28 @@ running = true;
 render();
 
 window.addEventListener('keydown', (e) => {
-  if (e.keyCode === 37) {
+  if (e.code === "ArrowLeft") {
     if (ourHero.x <= 0) return;
     ourHero.x -= HERO_SIZE;
   }
-  
-  if (e.keyCode === 39) {
+
+  if (e.code === "ArrowRight") {
     if (ourHero.x >= canvas.width - HERO_SIZE) return;
     ourHero.x += HERO_SIZE;
   }
 
-  if (e.keyCode === 32) {
-    if (running === false && lose){
+  if (e.code === "Space") {
+    if (running === false && lose) {
       running = true;
       stoped = false;
       render();
-    }else{
+    } else {
       stoped = true;
     }
   }
 
-  if (e.keyCode === 82){
-    if (running === false){
+  if (e.code === "KeyR") {
+    if (running === false) {
       for (var i = 0; i < 12; i++) {
         ENEMIES_STORE.pop(i);
       }
@@ -296,6 +296,6 @@ window.addEventListener('keydown', (e) => {
       readScoreData();
       running = true;
       render();
-    } 
+    }
   }
 });
