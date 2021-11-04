@@ -278,7 +278,7 @@ window.addEventListener('keydown', (e) => {
       running = true;
       stoped = false;
       render();
-    } else {
+    } else if (running === true &&  lose) {
       stoped = true;
     }
   }
@@ -295,6 +295,8 @@ window.addEventListener('keydown', (e) => {
       }
       readScoreData();
       running = true;
+      lose = true;
+      stoped = false;
       render();
     }
   }
